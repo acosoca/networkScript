@@ -5,7 +5,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 # 定义 IP 列表的第三段（xx 值）
-$ipThirdOctets = @(122, 137, 134, 136, 202, 131, 105)
+$ipThirdOctets = @(100..101)#@(122, 137, 134, 136, 202, 131, 105)
 $lastOctetDevice = ".17"
 $outfile = "output_$(Get-Date -Format 'yyyyMMdd_HHmmss').log"
 

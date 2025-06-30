@@ -15,7 +15,7 @@ if [[ ! -d "$networkDir" ]]; then
 fi
 
 # 获取所有状态为 UP 的适配器，并排除特定适配器（例如 ens65f0）
-adapters=$(ip -o link show | awk -F': ' '/state UP/ {print $2}' | grep -E '^ens|^eth' | grep -v 'ens65f0')
+adapters=$(ip -o link show | awk -F': ' '/state UP/ {print $2}' | grep -E '^ens|^eth|^eno12' | grep -v 'ens65f0')
 
 # 检查是否找到适配器
 if [[ -z "$adapters" ]]; then
@@ -33,11 +33,13 @@ for adapter in $adapters; do
     # 如果文件已存在，跳过
     if [[ -f "$networkFile" ]]; then
         echo "配置文件已存在: $networkFile"
-        continue
+        #continue
     fi
 
     # 获取当前适配器的 IP 地址
     ipAddress=$(ip -o -4 addr show "$adapter" | awk '{print $4}')
+
+    
 
     # 检查是否获取到 IP 地址
     if [[ -z "$ipAddress" ]]; then
